@@ -1,0 +1,10 @@
+require("uki.options")
+require("uki.plugins")
+require("uki.cmp")
+require("uki.lualine")
+require("uki.toggleterm")
+require("uki.autopairs")
+
+require("uki.lsp.null-ls")
+require("uki.lsp.mason")
+require("uki.lsp.lspconfig")
