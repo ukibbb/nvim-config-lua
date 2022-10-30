@@ -16,7 +16,6 @@ mason.setup({
 mason_lspconfig.setup({
     ensure_installed = {
         "bashls",
-        "gopls",
         "sumneko_lua",
         "pyright",
         "tsserver",

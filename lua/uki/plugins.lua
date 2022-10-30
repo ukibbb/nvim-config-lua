@@ -62,12 +62,15 @@ return packer.startup(function(use)
 
     use "akinsho/toggleterm.nvim"
     use "windwp/nvim-autopairs"
-
+    use "nvim-telescope/telescope.nvim"
+    
+    use "nvim-tree/nvim-tree.lua"
+    
     -- lsp
     use "williamboman/mason.nvim"
     use 'williamboman/mason-lspconfig.nvim'
     use "jose-elias-alvarez/null-ls.nvim"
-
+    use "nvim-treesitter/nvim-treesitter"
     
     if packer_bootstrap then
 	    require('packer').sync()
