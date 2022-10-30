@@ -63,9 +63,8 @@ return packer.startup(function(use)
     use "akinsho/toggleterm.nvim"
     use "windwp/nvim-autopairs"
     use "nvim-telescope/telescope.nvim"
-    
     use "nvim-tree/nvim-tree.lua"
-    
+    use "akinsho/bufferline.nvim"
     -- lsp
     use "williamboman/mason.nvim"
     use 'williamboman/mason-lspconfig.nvim'
