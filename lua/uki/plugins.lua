@@ -70,7 +70,13 @@ return packer.startup(function(use)
     use 'williamboman/mason-lspconfig.nvim'
     use "jose-elias-alvarez/null-ls.nvim"
     use "nvim-treesitter/nvim-treesitter"
+
+    use "morhetz/gruvbox"
     
+
+    use "BurntSushi/ripgrep"
+    use "sharkdp/fd"
+
     if packer_bootstrap then
 	    require('packer').sync()
     end

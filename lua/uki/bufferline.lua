@@ -4,7 +4,6 @@ if (not status_ok) then return end
 
 bufferline.setup({
     options = {
-	show_tab_indicators = true,
 	indicator = {
 	    icon = "▎", -- this should be omitted if indicator style is not 'icon'
 	    style = "icon",
@@ -14,11 +13,6 @@ bufferline.setup({
 	close_icon = "",
 	left_trunc_marker = "",
 	right_trunc_marker = "",
-	diagnostics = true,
-	show_buffer_close_icons = true,
-	show_buffer_icons = true,
-	show_close_icons = true,
 	separator_style = "bar",
-	always_show_bufferline = true
     }
 })
