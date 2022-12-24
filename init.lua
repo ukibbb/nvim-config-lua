@@ -79,9 +79,9 @@ require('packer').startup(function(use)
 
   use 'akinsho/toggleterm.nvim'
   use 'akinsho/bufferline.nvim'
-
   use { 'nvim-tree/nvim-tree.lua',requires = {'nvim-tree/nvim-web-devicons'}, tag = 'nightly'}
   use 'windwp/nvim-autopairs'
+  use 'alvan/vim-closetag'
 
 end)
 
@@ -154,8 +154,8 @@ vim.keymap.set("n", "<C-k>", "<C-w>k")
 vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Resize with arrows
-vim.keymap.set("n", "<C-Up>", ":resize -2<CR>" )
-vim.keymap.set("n", "<C-Down>", ":resize +2<CR>" )
+vim.keymap.set("n", "<C-Up>", ":resize +2<CR>" )
+vim.keymap.set("n", "<C-Down>", ":resize -2<CR>" )
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>" )
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>" )
 
@@ -172,7 +172,7 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- INSERT
