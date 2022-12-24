@@ -9,6 +9,8 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
+
+
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -24,14 +26,20 @@ require('packer').startup(function(use)
     },
   }
 
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-nvim-lua'
-
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'rafamadriz/friendly-snippets', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
+
+
+  use 'hrsh7th/cmp-buffer'
+  use  'hrsh7th/cmp-path'
+  use  'hrsh7th/cmp-nvim-lua'
+
+  use 'rafamadriz/friendly-snippets'
+
+
+
 
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -45,7 +53,9 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
   use 'nvim-treesitter/playground'
-  -- Git related plugins
+
+
+  -- Git related plugin
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
@@ -64,24 +74,24 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   use 'theprimeagen/harpoon'
-end)
+  use 'folke/zen-mode.nvim'
+  use 'github/copilot.vim'
 
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
-})
+  use 'akinsho/toggleterm.nvim'
+
+  use { 'nvim-tree/nvim-tree.lua',requires = {'nvim-tree/nvim-web-devicons'}, tag = 'nightly'}
+  use 'windwp/nvim-autopairs'
+
+end)
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- Show relative number
 vim.o.relativenumber = true
-
+vim.o.nu = true
 -- Set highlight on search
 vim.o.hlsearch = false
-
+vim.o.incsearch = true
 -- Make line numbers default
 vim.wo.number = true
 
@@ -106,8 +116,29 @@ vim.wo.signcolumn = 'yes'
 vim.o.termguicolors = true
 vim.cmd [[colorscheme onedark]]
 
+vim.o.smartindent = true
+vim.o.wrap = false
+
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
+
+vim.o.guicursor = ""
+vim.o.updatetime = 50
+vim.o.signcolumn = "yes"
+vim.o.colorcolumn = "80"
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader keyb
@@ -116,17 +147,90 @@ vim.o.completeopt = 'menuone,noselect'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Modes
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
+
+-- NORMAL
+
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
+-- Better window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Resize with arrows
+vim.keymap.set("n", "<C-Up>", ":resize -2<CR>" )
+vim.keymap.set("n", "<C-Down>", ":resize +2<CR>" )
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>" )
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>" )
+
+-- Navigate buffers
+vim.keymap.set("n", "<S-l>", ":bnext<CR>" )
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>" )
+
+-- Move text up and down
+vim.keymap.set("n", "<A-j>", "<Esc>:m .+1<CR>==gi" )
+vim.keymap.set("n", "<A-k>", "<Esc>:m .-2<CR>==gi" )
+
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- INSERT
+vim.keymap.set("i", "<C-c>", "<Esc>")
+
+-- VISUAL
+-- Stay in indent mode
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+
+-- Move text up and down
+vim.keymap.set("v", "<A-j>", ":m .+1<CR>==" )
+vim.keymap.set("v", "<A-k>", ":m .-2<CR>==" )
+vim.keymap.set("v", "p", '"_dP')
+
+-- Visual Block --
+-- Move text up and down
+vim.keymap.set("x", "J", ":move '>+1<CR>gv-gv" )
+vim.keymap.set("x", "K", ":move '<-2<CR>gv-gv" )
+vim.keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv" )
+vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv" )
+
+-- PRMIEAGEN - greatest keymaps
+
+vim.keymap.set("x", "<leader>p", [["_dP]])
+
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 
 -- [[ Highlight on yank ]]
@@ -423,8 +527,29 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' }
   },
 }
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+require("nvim-tree").setup {}
+require("zen-mode").setup {
+    window = {
+        width = 90,
+        options = {
+            number = true,
+            relativenumber = true
+        }
+    }
+}
+vim.keymap.set('n', '<leader>zz', function()
+    require("zen-mode").toggle()
+    vim.wo.wrap = false
+end)
+
+
+require("toggleterm").setup {
+  open_mapping = [[<c-\>]]
+}
+
+require("nvim-autopairs").setup {} 
