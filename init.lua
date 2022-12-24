@@ -78,6 +78,7 @@ require('packer').startup(function(use)
   use 'github/copilot.vim'
 
   use 'akinsho/toggleterm.nvim'
+  use 'akinsho/bufferline.nvim'
 
   use { 'nvim-tree/nvim-tree.lua',requires = {'nvim-tree/nvim-web-devicons'}, tag = 'nightly'}
   use 'windwp/nvim-autopairs'
@@ -95,9 +96,6 @@ vim.o.incsearch = true
 -- Make line numbers default
 vim.wo.number = true
 
--- Enable mouse mode
-vim.o.mouse = 'a'
-
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -107,31 +105,20 @@ vim.o.undofile = true
 -- Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = 'yes'
-
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.cmd [[colorscheme onedark]]
 
 vim.o.smartindent = true
-vim.o.wrap = false
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
-vim.o.expandtab = true
 
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
-vim.o.guicursor = ""
-vim.o.updatetime = 50
-vim.o.signcolumn = "yes"
-vim.o.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -160,9 +147,6 @@ vim.g.maplocalleader = ' '
 
 -- NORMAL
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
-
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
@@ -182,18 +166,7 @@ vim.keymap.set("n", "<S-h>", ":bprevious<CR>" )
 -- Move text up and down
 vim.keymap.set("n", "<A-j>", "<Esc>:m .+1<CR>==gi" )
 vim.keymap.set("n", "<A-k>", "<Esc>:m .-2<CR>==gi" )
-
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-
-
+-- it's all about displaying errors
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
@@ -553,3 +526,4 @@ require("toggleterm").setup {
 }
 
 require("nvim-autopairs").setup {}
+require("bufferline").setup{}
