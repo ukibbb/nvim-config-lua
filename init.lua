@@ -196,7 +196,7 @@ vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv" )
 --vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- Nvimtree 
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>')
+vim.keymap.set('n', '<leader>tt', ':NvimTreeToggle<cr>')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
