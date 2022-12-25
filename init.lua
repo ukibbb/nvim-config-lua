@@ -148,10 +148,10 @@ vim.g.maplocalleader = ' '
 -- NORMAL
 
 -- Better window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-hh>", "<C-w>h")
+vim.keymap.set("n", "<C-jj>", "<C-w>j")
+vim.keymap.set("n", "<C-kk>", "<C-w>k")
+vim.keymap.set("n", "<C-ll>", "<C-w>l")
 
 -- Resize with arrows
 vim.keymap.set("n", "<C-Up>", ":resize +2<CR>" )
