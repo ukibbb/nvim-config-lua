@@ -498,59 +498,19 @@ cmp.setup {
 }
 
 require("nvim-tree").setup {
-  update_focused_file = {
-    enable = true,
-    update_cwd = true,
-  },
-  renderer = {
-    root_folder_modifier = ":t",
-    icons = {
-      glyphs = {
-        default = "",
-        symlink = "",
-        folder = {
-          arrow_open = "",
-          arrow_closed = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
+    view = {
+        mappings = {
+            list = {
+                { key = { "l", "<CR>", "o" }, cb = require("nvim-tree.config").nvim_tree_callback "edit" },
+                { key = "h", cb = require("nvim-tree.config").nvim_tree_callback "close_node" },
+                { key = "v", cb = require("nvim-tree.config").nvim_tree_callback "vsplit" },
+            },
         },
-        git = {
-          unstaged = "",
-          staged = "S",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "U",
-          deleted = "",
-          ignored = "◌",
-        },
-      },
     },
-  },
-  diagnostics = {
-    enable = true,
-    show_on_dirs = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    },
-  },
-  view = {
-    width = 30,
-    side = "left",
-    mappings = {
-      list = {
-        { key = { "l", "<CR>", "o" }, cb = require("nvim-tree.config").nvim_tree_callback "edit" },
-        { key = "h", cb = require("nvim-tree.config").nvim_tree_callback "close_node" },
-        { key = "v", cb = require("nvim-tree.config").nvim_tree_callback "vsplit" },
-      },
-    },
-  },
+    git = {
+        enable = true,
+        ignore = false
+    }
 }
 
 require("zen-mode").setup {
@@ -574,3 +534,4 @@ require("toggleterm").setup {
 
 require("nvim-autopairs").setup {}
 require("bufferline").setup{}
+
