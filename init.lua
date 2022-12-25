@@ -1,3 +1,4 @@
+local emmet_ls = require "lspconfig.server_configurations.emmet_ls"
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -82,7 +83,8 @@ require('packer').startup(function(use)
   use { 'nvim-tree/nvim-tree.lua',requires = {'nvim-tree/nvim-web-devicons'}, tag = 'nightly'}
   use 'windwp/nvim-autopairs'
   use 'alvan/vim-closetag'
-
+  use 'SirVer/ultisnips'
+  use 'honza/vim-snippets'
 end)
 
 vim.o.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
@@ -158,7 +160,6 @@ vim.g.maplocalleader = ' '
 -- See `:help vim.keymap.set()`
 
 -- NORMAL
-
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h")
 vim.keymap.set("n", "<C-j>", "<C-w>j")
@@ -430,12 +431,21 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
-
   sumneko_lua = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
+    emmet_ls = {
+      filetypes = {"html", "typescriptreact", "javascriptreact", "css", "scss"},
+      init_options = {
+        html = {
+          options = {
+            ["bem.enabled"] = true
+          }
+        }
+      }
+    }
   },
 }
 
@@ -455,6 +465,8 @@ local mason_lspconfig = require 'mason-lspconfig'
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
 }
+
+
 
 mason_lspconfig.setup_handlers {
   function(server_name)
