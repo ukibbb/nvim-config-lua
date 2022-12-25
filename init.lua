@@ -148,10 +148,10 @@ vim.g.maplocalleader = ' '
 -- NORMAL
 
 -- Better window navigation
-vim.keymap.set("n", "<C-hh>", "<C-w>h")
-vim.keymap.set("n", "<C-jj>", "<C-w>j")
-vim.keymap.set("n", "<C-kk>", "<C-w>k")
-vim.keymap.set("n", "<C-ll>", "<C-w>l")
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Resize with arrows
 vim.keymap.set("n", "<C-Up>", ":resize +2<CR>" )
@@ -162,7 +162,7 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>" )
 -- Navigate buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>" )
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>" )
-
+vim.keymap.set("n", "<S-q>", ":bdelete<CR>")
 -- Move text up and down
 vim.keymap.set("n", "<A-j>", "<Esc>:m .+1<CR>==gi" )
 vim.keymap.set("n", "<A-k>", "<Esc>:m .-2<CR>==gi" )
@@ -247,10 +247,10 @@ local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 vim.keymap.set('n', '<leader>af', mark.add_file)
 vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
-vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
-vim.keymap.set('n', '<C-t>', function() ui.nav_file(2) end)
-vim.keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
-vim.keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
+vim.keymap.set('n', '<C-u>', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<C-i>', function() ui.nav_file(2) end)
+vim.keymap.set('n', '<C-o>', function() ui.nav_file(3) end)
+vim.keymap.set('n', '<C-p>', function() ui.nav_file(4) end)
 
 -- [[ UndoTree ]]
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
@@ -501,7 +501,7 @@ require("nvim-tree").setup {
     view = {
         mappings = {
             list = {
-                { key = { "l", "<CR>", "o" }, cb = require("nvim-tree.config").nvim_tree_callback "edit" },
+                { key = { "<CR>" }, cb = require("nvim-tree.config").nvim_tree_callback "edit" },
                 { key = "h", cb = require("nvim-tree.config").nvim_tree_callback "close_node" },
                 { key = "v", cb = require("nvim-tree.config").nvim_tree_callback "vsplit" },
             },
